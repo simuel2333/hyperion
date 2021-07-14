@@ -18,6 +18,10 @@ contract dBank {
         uint256 depositTime,
         uint256 interest
     );
+    event Exchange(
+        address indexed user,
+        uint256 amount
+    );
 
     //pass as constructor argument deployed Token contract
     constructor(Token _token) public {
@@ -89,11 +93,16 @@ contract dBank {
         //emit event
     }
 
-    function transfer(address from, address to, uint amount) public {
-
+    function transfer(address to, uint amount) public {
+        require(token.balanceOf(msg.sender)>=amount, "Error, you don't have enough digital RMB");
+        token.transfer(to, amount);
+        emit Transfer(msg.sender, to, amount);
     }
     //用ETH兑换13,613.81 RMB 注：2021/7/2价格
-    function exchange(address owner) public payable {
-        
+    function exchange() public payable {
+        require(msg.value >= 1e16, "Error, exchange must be >= 0.01 ETH");
+        uint256 amount = msg.vaule * 13613 / 1e18;
+        token.mint(msg.sender, amount);
+        emit Exchange(msg.sender, msg.value);
     }
 }

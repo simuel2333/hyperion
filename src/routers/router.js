@@ -10,6 +10,7 @@ import companys from '../view/admin/company/companys'
 import initList from '../view/admin/distribution/initList'
 import distribution from "../view/admin/distribution/distribution";
 import futures from "../view/admin/futures/futures";
+import bank from "../view/admin/bank/bank"
 import { CopyOutlined, AreaChartOutlined, ShopOutlined, TrademarkCircleFilled, CloudUploadOutlined } from '@ant-design/icons'
 export const mainRoutes = [
     {
@@ -87,5 +88,12 @@ export const adminRoutes = [
         isShow: true,
         title: "个人期货交易",
         icon: CopyOutlined
+    },
+    {
+        path: "/admin/bank",
+        component: bank,
+        isShow: true,
+        title: "钱庄",
+        icon: CloudUploadOutlined
     },
 ];
